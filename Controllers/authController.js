@@ -1,30 +1,25 @@
 const Users = require('../Models/userModel');
 const User = require('../Models/userModel');
 const jwt = require('jsonwebtoken');
+const AppError = require('../utils/appError');
 const { promisify } = require('util');
 
 const createToken = (user) => {
-  return jwt.sign(
-    { data: user },
-    process.env.SECRETKEY,
-    { expiresIn: process.env.EXPIRES_IN }
-  );
+  return jwt.sign({ data: user }, process.env.SECRETKEY, {
+    expiresIn: process.env.EXPIRES_IN,
+  });
 };
 
-exports.createUser =
-  ('/createUser',
-  (req, res) => {
-    Users.create(req.body)
-      .then((user) => {
-        const token = createToken(user);
-        res.status(202).json({ data: user, token: token });
-      })
-      .catch((err) => {
-        console.log(err);
-
-        res.status(400).json({ message: err });
-      });
-  });
+exports.createUser = (req, res) => {
+  Users.create(req.body)
+    .then((user) => {
+      const token = createToken(user);
+      res.status(202).json({ data: user, token: token });
+    })
+    .catch((err) => {
+      return next(new AppError(err, 400));
+    });
+};
 
 exports.loginUser = (req, res) => {
   if (!req.body.email || !req.body.password)
@@ -43,7 +38,7 @@ exports.loginUser = (req, res) => {
       return res.status(500).json({ message: 'wrong password  or username' });
     })
     .catch((err) => {
-      res.status(400).json(err);
+      next(err);
     });
 };
 
@@ -59,7 +54,6 @@ exports.protect = async (req, res, next) => {
       next();
     })
     .catch((err) => {
-      console.log(err);
-      return res.status(403).json({ message: err });
+      return next(err);
     });
 };
