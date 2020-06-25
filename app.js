@@ -1,7 +1,7 @@
+const AppError = require('./utils/appError');
 const express = require('express');
-
+const errorHandler = require('./Controllers/errorHandleController');
 const app = express();
-
 const userRouter = require('./Routes/userRoute');
 
 // const rateLimiter = rateLimit({
@@ -16,6 +16,13 @@ app.use(express.static(`${__dirname}/public`));
 require('./dbConnection');
 
 app.use('/api/v1/users', userRouter);
+
+app.all('*', (req, res, next) => {
+  const err = new AppError('This endpoint is not available', 404);
+  next(err);
+});
+
+app.use(errorHandler);
 
 app.locals.email = 'timlubanga@gmail.com';
 
