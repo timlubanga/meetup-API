@@ -1,7 +1,10 @@
-require("dotenv").config({ path: "./env/config.env" });
+require('dotenv').config({ path: './env/config.env' });
+const deleteData = require('./script');
 
-const app = require("./app");
-console.log(process.env.NODE_ENV)
+const app = require('./app');
+if ((process.env.NODE_ENV == 'clearing')) {
+  deleteData();
+}
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(

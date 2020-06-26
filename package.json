@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "build": "NODE_ENV=production nodemon server.js"
+    "build": "NODE_ENV=production nodemon server.js",
+    "clear": "NODE_ENV=clearing nodemon server.js"
   },
   "repository": {
     "type": "git",
