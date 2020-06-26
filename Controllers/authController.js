@@ -1,5 +1,4 @@
 const Users = require('../Models/userModel');
-const User = require('../Models/userModel');
 const jwt = require('jsonwebtoken');
 const AppError = require('../utils/appError');
 const { promisify } = require('util');
@@ -10,7 +9,7 @@ const createToken = (user) => {
   });
 };
 
-exports.createUser = (req, res) => {
+exports.createUser = (req, res, next) => {
   Users.create(req.body)
     .then((user) => {
       const token = createToken(user);
@@ -26,12 +25,13 @@ exports.loginUser = (req, res) => {
     return res
       .status(404)
       .json({ message: 'please provide email or password' });
-  User.findOne({ email: req.body.email })
+  Users.findOne({ email: req.body.email })
     .select('+password')
     .then((user) => {
       if (!user) return res.status(404).json({ message: 'no user found' });
-      console.log(user.password);
-      if (user.password === req.body.password) {
+
+      const correct = user.comparePasswords(user.password, req.body.password);
+      if (correct) {
         const newToken = createToken(user);
         return res.status(200).json({ data: user, token: newToken });
       }
@@ -44,14 +44,29 @@ exports.loginUser = (req, res) => {
 
 exports.protect = async (req, res, next) => {
   let token = req.headers.authorization;
+  //check if the request has a token
   if (!token)
     return res.status(403).json({ Message: 'no permission, please sign in' });
   token = req.headers.authorization.split(' ')[1];
-
+  //check whether the token issud if valid
   await promisify(jwt.verify)(token, process.env.SECRETKEY)
     .then((decoded) => {
-      console.log(decoded);
-      next();
+      return decoded;
+    })
+    .then(async (decoded) => {
+      //check if the user still exists.it has not been deleted
+      const user = await Users.findById(decoded.data._id);
+      console.log(user);
+      if (!user) {
+        return next(new AppError('The user does not exist', 401));
+      }
+      //check whether the token was issued before the password has been changed
+      if (user.passChangeAfterTokenIssued(decoded.iat)) {
+        return next(new AppError('please login again. Password changed', 401));
+      } else {
+        req.user = user;
+        next();
+      }
     })
     .catch((err) => {
       return next(err);
