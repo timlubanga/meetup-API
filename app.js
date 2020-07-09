@@ -3,6 +3,7 @@ const express = require('express');
 const errorHandler = require('./Controllers/errorHandleController');
 const app = express();
 const userRouter = require('./Routes/userRoute');
+const meetupRouter = require('./Routes/meetupRoute');
 
 // const rateLimiter = rateLimit({
 //     max: 5000,
@@ -14,8 +15,9 @@ app.use(express.static(`${__dirname}/public`));
 
 //connect the application to the database
 require('./dbConnection');
-
+app.use('/api/v1/meetup', meetupRouter);
 app.use('/api/v1/users', userRouter);
+
 
 app.all('*', (req, res, next) => {
   const err = new AppError('This endpoint is not available', 404);

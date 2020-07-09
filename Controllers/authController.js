@@ -21,6 +21,7 @@ exports.createUser = (req, res, next) => {
 };
 
 exports.loginUser = (req, res) => {
+  console.log(req.query);
   if (!req.body.email || !req.body.password)
     return res
       .status(404)
@@ -56,7 +57,6 @@ exports.protect = async (req, res, next) => {
     .then(async (decoded) => {
       //check if the user still exists.it has not been deleted
       const user = await Users.findById(decoded.data._id);
-      console.log(user);
       if (!user) {
         return next(new AppError('The user does not exist', 401));
       }
