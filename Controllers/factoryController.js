@@ -7,10 +7,12 @@ exports.deleteOneRecord = (Model) => (req, res, next) => {
       if (!data) {
         return next(new AppError('The record is not found', 404));
       }
+
+      else{
       res.status(204).json({
         status: 'success',
         message: 'deleted',
-      });
+      })}
     })
     .catch((err) => {
       next(err);
@@ -20,10 +22,6 @@ exports.deleteOneRecord = (Model) => (req, res, next) => {
 exports.deleteAllRecords = (Model) => (req, res, next) => {
   let query = {};
   let message = 'all records deleted';
-  if (req.params.tourId) {
-    query.tour = req.params.tourId;
-    message = `${message} for tour id: ${re.params.tourId}`;
-  }
   Model.deleteMany(query)
     .then(() => {
       res.status(204).json({
@@ -37,9 +35,9 @@ exports.deleteAllRecords = (Model) => (req, res, next) => {
 
 exports.getAllRecords = (Model) => (req, res) => {
   let query = {};
-  if (req.params.tourId) {
-    query = { tour: req.params.tourId };
-  }
+  // if (req.params.meetupId) {
+  //   query = { meetup: req.params.meetupId };
+  // }
 
   if (Object.keys(req.query).length && Object.values(req.query)[0]) {
     query = JSON.stringify(req.query);
@@ -79,11 +77,10 @@ exports.getAllRecords = (Model) => (req, res) => {
 };
 
 exports.getOneRecord = (Model) => (req, res, next) => {
-  console.log(req.params.id);
   Model.findById(req.params.id)
     .then((records) => {
       if (!records) {
-        return next(new AppError('You entered wrong ID', 404));
+        return next(new AppError('The record not found', 404));
       }
       res.status(200).json({
         records,
