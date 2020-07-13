@@ -6,13 +6,12 @@ exports.deleteOneRecord = (Model) => (req, res, next) => {
     .then((data) => {
       if (!data) {
         return next(new AppError('The record is not found', 404));
+      } else {
+        res.status(204).json({
+          status: 'success',
+          message: 'deleted',
+        });
       }
-
-      else{
-      res.status(204).json({
-        status: 'success',
-        message: 'deleted',
-      })}
     })
     .catch((err) => {
       next(err);
@@ -33,7 +32,7 @@ exports.deleteAllRecords = (Model) => (req, res, next) => {
     });
 };
 
-exports.getAllRecords = (Model) => (req, res) => {
+exports.getAllRecords = (Model) => (req, res, next) => {
   let query = {};
   // if (req.params.meetupId) {
   //   query = { meetup: req.params.meetupId };
@@ -87,11 +86,12 @@ exports.getOneRecord = (Model) => (req, res, next) => {
       });
     })
     .catch((err) => {
-      next(err);
+      return next(err);
     });
 };
 
 exports.createDoc = (Model) => (req, res, next) => {
+  if (req.user) req.body.user = req.user._id;
   Model.create(req.body)
     .then((docs) => {
       res.status(201).json({
@@ -105,6 +105,7 @@ exports.createDoc = (Model) => (req, res, next) => {
 };
 
 exports.updateRecord = (Model, options = {}) => (req, res, next) => {
+  console.log(options);
   if (Object.values(options).length && Object.keys(options).length) {
     req.body = { ...options };
   }

@@ -3,13 +3,13 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 // const crypto = require('crypto');
 userSchema = moongose.Schema({
-  Firstname: {
+  firstname: {
     type: String,
     required: [true, 'Please provide your name'],
     validate: [validator.isAlpha, 'A name cannot have a number'],
   },
 
-  Lastname: {
+  lastname: {
     type: String,
     required: [true, 'Please provide your name'],
     validate: [validator.isAlpha, 'A name cannot have a number'],
