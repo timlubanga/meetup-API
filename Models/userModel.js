@@ -64,18 +64,16 @@ userSchema.pre('save', async function (next) {
 
   //prevent pass frompersisting into the database
   this.confirmPassword = undefined;
-  
 });
 
-
-userSchema.methods.comparePasswords = async function(
+userSchema.methods.comparePasswords = async function (
   candidatePassword,
   userpassword
 ) {
   return await bcrypt.compare(candidatePassword, userpassword);
 };
 
-userSchema.methods.passChangeAfterTokenIssued = function(jwtIAT) {
+userSchema.methods.passChangeAfterTokenIssued = function (jwtIAT) {
   // console.log(this.passwordChangeAt.getTime() / 1000 > jwtIAT);
   // console.log(this.passwordChangeAt.getTime() / 1000, jwtIA
   if (this.passwordChangeAt) {
@@ -85,16 +83,12 @@ userSchema.methods.passChangeAfterTokenIssued = function(jwtIAT) {
   return false;
 };
 
-
-
-
 userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
 
-
-userSchema.methods.passChangeAfterTokenIssued = function(jwtIAT) {
+userSchema.methods.passChangeAfterTokenIssued = function (jwtIAT) {
   // console.log(this.passwordChangeAt.getTime() / 1000 > jwtIAT);
   // console.log(this.passwordChangeAt.getTime() / 1000, jwtIA
   if (this.passwordChangeAt) {

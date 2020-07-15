@@ -1,6 +1,7 @@
 const express = require('express');
+const voteRouter = require('./voteRoute');
 
-const router = express.Router();
+const router = express.Router({mergeParams:true});
 
 const {
   createQuestion,
@@ -10,7 +11,7 @@ const {
   deleteAllQuestions,
   updateQuestion,
 } = require('../Controllers/questionController');
-const { route } = require('./userRoute');
+
 
 router
   .route('/')
@@ -23,5 +24,5 @@ router
   .get(getQuestion)
   .patch(updateQuestion)
   .delete(deleteQuestion);
-
+router.use('/:questionId/votes', voteRouter);
 module.exports = router;

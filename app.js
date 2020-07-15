@@ -5,7 +5,8 @@ const app = express();
 const userRouter = require('./Routes/userRoute');
 const meetupRouter = require('./Routes/meetupRoute');
 const questionRouter = require('./Routes/questionRoute');
-const voteRouter=require('./Routes/voteRoute')
+const voteRouter = require('./Routes/voteRoute');
+const rsvpRouter = require('./Routes/rsvpRoute');
 
 // const rateLimiter = rateLimit({
 //     max: 5000,
@@ -21,6 +22,7 @@ app.use('/api/v1/meetup', meetupRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/question', questionRouter);
 app.use('/api/v1/vote', voteRouter);
+app.use('/api/v1/rsvp', rsvpRouter);
 
 app.all('*', (req, res, next) => {
   const err = new AppError('This endpoint is not available', 404);

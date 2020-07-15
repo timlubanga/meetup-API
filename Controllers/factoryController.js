@@ -34,9 +34,10 @@ exports.deleteAllRecords = (Model) => (req, res, next) => {
 
 exports.getAllRecords = (Model) => (req, res, next) => {
   let query = {};
-  // if (req.params.meetupId) {
-  //   query = { meetup: req.params.meetupId };
-  // }
+
+  if (req.params.meetupid) {
+    query = { meetup: req.params.meetupid };
+  }
 
   if (Object.keys(req.query).length && Object.values(req.query)[0]) {
     query = JSON.stringify(req.query);
@@ -57,13 +58,13 @@ exports.getAllRecords = (Model) => (req, res, next) => {
   ['sort', 'displayfields', 'limit', 'pages'].forEach((el) => {
     delete query[el];
   });
+  
   Model.find(query)
     .sort(sort)
     .skip(items)
     .select(displayfields)
     .limit(limit)
     .then((docs) => {
-      console.log('fuck one');
       res.status(200).json({
         status: 'success',
         docs,
@@ -76,7 +77,7 @@ exports.getAllRecords = (Model) => (req, res, next) => {
 };
 
 exports.getOneRecord = (Model) => (req, res, next) => {
-  Model.findById(req.params.id)
+  Model.findById(req.params.meetupid)
     .then((records) => {
       if (!records) {
         return next(new AppError('The record not found', 404));
@@ -92,8 +93,13 @@ exports.getOneRecord = (Model) => (req, res, next) => {
 
 exports.createDoc = (Model) => (req, res, next) => {
   if (req.user) req.body.user = req.user._id;
+  if (req.params.meetupid) req.body.meetup = req.params.meetupid;
   Model.create(req.body)
     .then((docs) => {
+      if (docs.meetup && docs.user) {
+        req.response = docs;
+        return next();
+      }
       res.status(201).json({
         status: '201',
         data: docs,
