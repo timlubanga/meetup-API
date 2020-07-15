@@ -1,0 +1,36 @@
+{
+  "name": "meetup-api",
+  "version": "1.0.0",
+  "description": "meetup api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "build": "NODE_ENV=production nodemon server.js",
+    "clear": "NODE_ENV=clearing nodemon server.js",
+    "debug": "ndb server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timlubanga/meetup-API.git"
+  },
+  "author": "timothy lubanga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timlubanga/meetup-API/issues"
+  },
+  "homepage": "https://github.com/timlubanga/meetup-API#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-graceful-shutdown": "^2.3.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.19",
+    "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "ndb": "^1.1.5",
+    "nodemon": "^2.0.4"
+  }
+}
