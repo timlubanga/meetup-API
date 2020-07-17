@@ -17,9 +17,10 @@ const RsvpSchema = mongoose.Schema({
   },
 });
 
-// RsvpSchema.pre(/^find/, function () {
-//   this.populate('meetup');
-// });
+RsvpSchema.pre(/^find/, function () {
+  this.populate('meetup');
+});
+
 const RSVP = mongoose.model('Rsvp', RsvpSchema);
 
 module.exports = RSVP;

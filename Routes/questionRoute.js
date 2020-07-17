@@ -1,7 +1,7 @@
 const express = require('express');
 const voteRouter = require('./voteRoute');
 
-const router = express.Router({mergeParams:true});
+const router = express.Router({ mergeParams: true });
 
 const {
   createQuestion,
@@ -10,19 +10,24 @@ const {
   deleteQuestion,
   deleteAllQuestions,
   updateQuestion,
+  sortQuestionsPerupvotes,
+  getNumberofQuesuestionsPostedByUser,
 } = require('../Controllers/questionController');
-
-
+const { protect } = require('../Controllers/authController');
+router.use(protect);
+router.get('/:meetupid/getquestionByupvotes', sortQuestionsPerupvotes);
+router.get('/totalquestionpostedByUser', getNumberofQuesuestionsPostedByUser);
 router
   .route('/')
   .post(createQuestion)
   .get(getAllQuestions)
   .delete(deleteAllQuestions);
-
+router.use(protect);
 router
   .route('/:id')
   .get(getQuestion)
   .patch(updateQuestion)
   .delete(deleteQuestion);
+
 router.use('/:questionId/votes', voteRouter);
 module.exports = router;
