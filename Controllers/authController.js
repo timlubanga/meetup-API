@@ -21,7 +21,6 @@ exports.createUser = (req, res, next) => {
 };
 
 exports.loginUser = (req, res) => {
-  console.log(req.query);
   if (!req.body.email || !req.body.password)
     return res
       .status(404)

@@ -58,7 +58,7 @@ exports.getAllRecords = (Model) => (req, res, next) => {
   ['sort', 'displayfields', 'limit', 'pages'].forEach((el) => {
     delete query[el];
   });
-  
+
   Model.find(query)
     .sort(sort)
     .skip(items)
@@ -92,6 +92,7 @@ exports.getOneRecord = (Model) => (req, res, next) => {
 };
 
 exports.createDoc = (Model) => (req, res, next) => {
+  console.log('creating');
   if (req.user) req.body.user = req.user._id;
   if (req.params.meetupid) req.body.meetup = req.params.meetupid;
   Model.create(req.body)
@@ -111,7 +112,6 @@ exports.createDoc = (Model) => (req, res, next) => {
 };
 
 exports.updateRecord = (Model, options = {}) => (req, res, next) => {
-  console.log(options);
   if (Object.values(options).length && Object.keys(options).length) {
     req.body = { ...options };
   }

@@ -7,10 +7,13 @@ const {
   getAllMeetups,
   deleteAllMeetups,
   deleteOneMeetup,
+  getupcomingMeetings,
 } = require('../Controllers/meetupController');
 const questionRouter = require('../Routes/questionRoute');
 
 const router = express.Router();
+
+router.get('/upcoming', getupcomingMeetings);
 
 router
   .route('/')
