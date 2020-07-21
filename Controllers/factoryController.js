@@ -126,9 +126,17 @@ exports.updateRecord = (Model, options = {}) => (req, res, next) => {
     new: true,
   })
     .then((doc) => {
-      res.status(202).json({ message: 'success', doc });
+      if (!doc) {
+        return next(
+          new AppError(
+            'An internal error occured, please check your id to make sure it is correct'
+          )
+        );
+      } else {
+         res.status(202).json({ message: 'success', doc });
+      }
     })
     .catch((err) => {
-      next(err);
+      return next(err);
     });
 };
