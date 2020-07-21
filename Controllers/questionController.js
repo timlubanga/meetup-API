@@ -20,7 +20,9 @@ exports.deleteAllQuestions = deleteAllRecords(Question);
 
 exports.sortQuestionsPerupvotes = (req, res, next) => {
   //convert id in mongoose objectid as it is not autocasted into string in aggregrate
+
   const meetup = mongoose.Types.ObjectId(req.params.meetupid);
+  console.log(meetup);
   Question.aggregate([
     {
       $match: {
@@ -45,7 +47,6 @@ exports.sortQuestionsPerupvotes = (req, res, next) => {
 };
 
 exports.getNumberofQuesuestionsPostedByUser = (req, res, next) => {
-  
   Question.aggregate([
     {
       $match: {
@@ -62,5 +63,31 @@ exports.getNumberofQuesuestionsPostedByUser = (req, res, next) => {
     })
     .catch((err) => {
       next(new AppError(err));
+    });
+};
+
+exports.topQuestionFeedsForuser = (req, res, next) => {
+  //convert id in mongoose objectid as it is not autocasted into string in aggregrate
+  const user = mongoose.Types.ObjectId(req.user._id);
+  Question.aggregate([
+    {
+      $match: {
+        user,
+      },
+    },
+    {
+      $project: { meetup: 1, upvotes: 1, body: 1, title: 1 },
+    },
+    {
+      $sort: {
+        upvotes: -1,
+      },
+    },
+  ])
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      next(err);
     });
 };

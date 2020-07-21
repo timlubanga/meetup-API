@@ -8,6 +8,9 @@ const {
   deleteAllMeetups,
   deleteOneMeetup,
   getupcomingMeetings,
+  handleFilewithMulter,
+  resizephotos,
+  updatePhotosOnly,
 } = require('../Controllers/meetupController');
 const questionRouter = require('../Routes/questionRoute');
 
@@ -17,13 +20,13 @@ router.get('/upcoming', getupcomingMeetings);
 
 router
   .route('/')
-  .post(createMeetup)
+  .post(handleFilewithMulter, resizephotos, createMeetup)
   .get(getAllMeetups)
   .delete(deleteAllMeetups);
 router
   .route('/:meetupid')
   .get(getOneMeetup)
-  .patch(updateMeetup)
+  .patch(handleFilewithMulter, resizephotos, updatePhotosOnly, updateMeetup)
   .delete(deleteOneMeetup);
 router.use('/:meetupid/question', questionRouter);
 router.use('/:meetupid/rsvp', RSVPRouter);
