@@ -16,8 +16,8 @@ const rsvpRouter = require('./Routes/rsvpRoute');
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
-//connect the application to the database
-require('./dbConnection');
+// //connect the application to the database
+// require('./dbConnection');
 app.use('/api/v1/meetup', meetupRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/question', questionRouter);
