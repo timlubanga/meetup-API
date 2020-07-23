@@ -1,7 +1,7 @@
 const moongose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-// const crypto = require('crypto');
+const crypto = require('crypto');
 userSchema = moongose.Schema({
   firstname: {
     type: String,
@@ -66,6 +66,9 @@ userSchema.pre('save', async function (next) {
   this.confirmPassword = undefined;
 });
 
+
+
+
 userSchema.methods.comparePasswords = async function (
   candidatePassword,
   userpassword
@@ -98,15 +101,15 @@ userSchema.methods.passChangeAfterTokenIssued = function (jwtIAT) {
   return false;
 };
 
-// userSchema.methods.generateResetToken = function() {
-//   const resetToken = crypto.randomBytes(32).toString('hex');
-//   this.passwordResetToken = crypto
-//     .createHash('sha256')
-//     .update(resetToken)
-//     .digest('hex');
-//   this.passwordTokenExpiresAt = Date.now() + 10 * 60 * 1000;
-//   return resetToken;
-// };
+userSchema.methods.generateResetToken = function() {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  this.passwordTokenExpiresAt = Date.now() + 10 * 60 * 1000;
+  return resetToken;
+};
 const User = moongose.model('User', userSchema);
 
 module.exports = User;
