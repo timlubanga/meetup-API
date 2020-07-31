@@ -1,7 +1,9 @@
 require('dotenv').config({ path: './env/config.env' });
 
 //connect the application to the database
-const db = require('./dbConnection');
+if (process.env.NODE_ENV == 'production' || 'development') {
+  const dbConnect = require('./dbConnection').databaseConnect();
+}
 
 const app = require('./app');
 if (process.env.NODE_ENV == 'clearing') {
@@ -14,3 +16,5 @@ app.listen(port, () => {
     `the sever is running on port ${process.env.PORT} your mail is ${app.locals.email}`
   );
 });
+
+module.exports = app;

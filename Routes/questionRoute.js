@@ -15,21 +15,29 @@ const {
   topQuestionFeedsForuser,
 } = require('../Controllers/questionController');
 const { protect } = require('../Controllers/authController');
+const { CheckifTheIdisValid } = require('../Controllers/factoryController');
+const Meetup = require('../Models/meetupModel');
+const Question = require('../Models/questionModel');
+
 router.use(protect);
-router.get('/:meetupid/getquestionByupvotes', sortQuestionsPerupvotes);
+router.get(
+  '/:meetupid/getquestionByupvotes',
+  CheckifTheIdisValid(Meetup, 'meetupid'),
+  sortQuestionsPerupvotes
+);
 router.get('/totalquestionpostedByUser', getNumberofQuesuestionsPostedByUser);
 router.get('/topquestionFeedforUser', topQuestionFeedsForuser);
 router
   .route('/')
-  .post(createQuestion)
+  .post(CheckifTheIdisValid(Meetup, 'meetupid'), createQuestion)
   .get(getAllQuestions)
   .delete(deleteAllQuestions);
-router.use(protect);
+
 router
   .route('/:id')
-  .get(getQuestion)
-  .patch(updateQuestion)
-  .delete(deleteQuestion);
+  .get(CheckifTheIdisValid(Question, 'id'), getQuestion)
+  .patch(CheckifTheIdisValid(Question, 'id'), updateQuestion)
+  .delete(CheckifTheIdisValid(Question, 'id'), deleteQuestion);
 
 router.use('/:questionId/votes', voteRouter);
 module.exports = router;

@@ -36,6 +36,8 @@ const errorHandler = (err, req, res, next) => {
       error = new AppError(err.errmsg, 400);
     } else if ((err.name = 'TokenExpiredError')) {
       error = new AppError('The token has expired, please sign in again', 403);
+    } else {
+      error = err;
     }
 
     sendToProduction(error, req, res);

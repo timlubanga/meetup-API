@@ -37,8 +37,10 @@ const upload = multer({ storage, fileFilter });
 exports.handleFilewithMulter = upload.array('photos');
 
 exports.resizephotos = (req, res, next) => {
-  req.params.id = req.params.meetupid;
-
+  if (req.params.meetupid) {
+    req.params.id = req.params.meetupid;
+  }
+  if (!req.files) return next();
   if (!req.files.length) return next();
   req.body.images = [];
   Promise.all(

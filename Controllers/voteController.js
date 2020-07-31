@@ -13,14 +13,15 @@ exports.downVoteQuestion = createDoc(Vote);
 exports.deleteAvote = deleteOneRecord(Vote);
 exports.getALLVotes = getAllRecords(Vote);
 
-exports.questionId = (req, res, next) => {
-  if (!req.params.questionId)
-    return next(AppError('please provide the question id', 500));
-  req.body.question = req.params.questionId;
+exports.CheckVotingStatusandProvideandOption = (option) => {
+  return (req, res, next) => {
+    if (!req.params.questionId)
+      return next(AppError('please provide the question id', 500));
+    req.body.question = req.params.questionId;
+    req.body.option = option;
 
-  //check is the use alreally voted
-  if (req.user) {
-    Vote.findOne({ user: req.user._id, question: req.params.questionId })
+    //check is the use alreally voted
+    Vote.findOne({ user: req.user._id, question: req.body.question })
       .then((user) => {
         if (user)
           return next(new AppError('please note that you already voted', 403));
@@ -29,5 +30,5 @@ exports.questionId = (req, res, next) => {
       .catch((err) => {
         return next(err);
       });
-  }
+  };
 };

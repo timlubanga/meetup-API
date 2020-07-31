@@ -21,9 +21,10 @@ voteSchema = mongoose.Schema({
 // voteSchema.index({ question: 1, user: 1 }, { unique: true });
 
 voteSchema.statics.CalculateDownVoteandUpvotes = function (questionId, next) {
+  const newQuestion = mongoose.Types.ObjectId(questionId);
   this.aggregate([
     {
-      $match: { question: questionId },
+      $match: { question: newQuestion },
     },
     {
       $group: {
@@ -37,37 +38,31 @@ voteSchema.statics.CalculateDownVoteandUpvotes = function (questionId, next) {
         votes: 1,
       },
     },
+  ]).then((results) => {
+    let upvotes = 0;
+    let downvotes = 0;
+    if (results[0]._id == 'upvote') upvotes = results[0].votes;
+    if (results[0]._id == 'downvote') downvotes = results[0].votes;
+    if (results[1]) downvotes = results[1].votes;
 
-    // $project: {
-    //   votes: 1,
-    // },
-    // },
-  ])
-    .then((results) => {
-      const upvotes = results[0].votes;
-      const downvotes = results[1].votes;
-      const votes = sumVotes(upvotes, downvotes);
-      Question.findByIdAndUpdate(questionId, {
-        upvotes: upvotes,
-        downvotes: downvotes,
-        votes: votes,
-      })
-        .then(() => {
-          console.log('question updated');
-        })
-        .catch((err) => {
-          console.log('something went wrong updating the question');
-          return next(err);
-        });
+    const votes = sumVotes(upvotes, downvotes);
+    Question.findByIdAndUpdate(questionId, {
+      upvotes: upvotes,
+      downvotes: downvotes,
+      votes: votes,
     })
-    .catch((err) => {
-      return next(new AppError(err));
-    });
+      .then(() => {
+        console.log('question updated');
+      })
+      .catch((err) => {
+        console.log('something went wrong updating the question');
+        next(err)
+      });
+  });
 };
 
 voteSchema.post('save', function (next) {
   this.constructor.CalculateDownVoteandUpvotes(this.question, next);
-  next();
 });
 
 voteSchema.pre(/^findOneAnd/, async function (next) {
@@ -81,7 +76,7 @@ voteSchema.pre(/^findOneAnd/, async function (next) {
 voteSchema.post(/^findOneAnd/, function (res, next) {
   console.log('updating in progress');
   this.vote.constructor.CalculateDownVoteandUpvotes(this.vote.question, next);
-  next()
+  next();
 });
 
 const Vote = mongoose.model('Vote', voteSchema);

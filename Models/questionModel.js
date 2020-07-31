@@ -41,6 +41,7 @@ questionSchema = mongoose.Schema(
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 // questionSchema.pre(/^find/, function () {
+//   console.log('fuck all of you');
 //   this.populate({
 //     path: 'meetup',
 //     select: '-__v ',
