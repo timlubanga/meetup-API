@@ -1,14 +1,15 @@
 const AppError = require('../utils/appError');
-
+const mongoose = require('mongoose');
 exports.deleteOneRecord = (Model) => (req, res, next) => {
+  if (req.params.meetupid) req.params.id = req.params.id;
   Model.findByIdAndDelete(req.params.id)
 
     .then((data) => {
       if (!data) {
         return next(new AppError('The record is not found', 404));
       } else {
-        res.status(204).json({
-          status: 'success',
+        res.json({
+          status: 204,
           message: 'deleted',
         });
       }
@@ -77,7 +78,10 @@ exports.getAllRecords = (Model) => (req, res, next) => {
 };
 
 exports.getOneRecord = (Model) => (req, res, next) => {
-  Model.findById(req.params.meetupid)
+  let id;
+  if (req.params.meetupid) id = req.params.meetupid;
+  if (req.params.id) id = req.params.id;
+  Model.findById(id)
     .then((records) => {
       if (!records) {
         return next(new AppError('The record not found', 404));
@@ -92,12 +96,12 @@ exports.getOneRecord = (Model) => (req, res, next) => {
 };
 
 exports.createDoc = (Model) => (req, res, next) => {
-  console.log('creating');
   if (req.user) req.body.user = req.user._id;
   if (req.params.meetupid) req.body.meetup = req.params.meetupid;
+
   Model.create(req.body)
     .then((docs) => {
-      if (docs.meetup && docs.user) {
+      if (docs.response) {
         req.response = docs;
         return next();
       }
@@ -133,10 +137,31 @@ exports.updateRecord = (Model, options = {}) => (req, res, next) => {
           )
         );
       } else {
-         res.status(202).json({ message: 'success', doc });
+        res.status(202).json({ message: 'success', doc });
       }
     })
     .catch((err) => {
       return next(err);
     });
+};
+
+exports.CheckifTheIdisValid = (Model, paramId) => {
+  return (req, res, next) => {
+    console.log(req.params);
+    if (!req.params) {
+      return next();
+    }
+
+    const isValid = mongoose.Types.ObjectId.isValid(req.params[paramId]);
+
+    if (!isValid)
+      return next(new AppError(`please enter a valid ${paramId}`, 404));
+    const id = req.params[paramId];
+
+    Model.findById(id).then((data) => {
+      if (!data)
+        return next(new AppError(`please provide a valid ${paramId}`, 404));
+      next();
+    });
+  };
 };

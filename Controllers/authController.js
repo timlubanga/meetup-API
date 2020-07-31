@@ -20,6 +20,7 @@ exports.createUser = (req, res, next) => {
       if (email.responseCode == 535)
         return next(new AppError(email.response, email.responseCode));
       const token = createToken(user);
+      user = deselectPassword(user)
       res.status(202).json({ data: user, token: token });
     })
     .catch((err) => {
@@ -40,6 +41,7 @@ exports.loginUser = (req, res) => {
       const correct = user.comparePasswords(user.password, req.body.password);
       if (correct) {
         const newToken = createToken(user);
+        user = deselectPassword(user);
         return res.status(200).json({ data: user, token: newToken });
       }
       return res.status(500).json({ message: 'wrong password  or username' });
@@ -180,4 +182,9 @@ exports.updateMyPassword = (req, res, next) => {
         next(new AppError(err));
       });
   });
+};
+
+const deselectPassword = (doc) => {
+  delete doc._doc.password;
+  return doc;
 };

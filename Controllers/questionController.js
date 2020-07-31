@@ -20,9 +20,8 @@ exports.deleteAllQuestions = deleteAllRecords(Question);
 
 exports.sortQuestionsPerupvotes = (req, res, next) => {
   //convert id in mongoose objectid as it is not autocasted into string in aggregrate
-
   const meetup = mongoose.Types.ObjectId(req.params.meetupid);
-  console.log(meetup);
+
   Question.aggregate([
     {
       $match: {
@@ -91,3 +90,5 @@ exports.topQuestionFeedsForuser = (req, res, next) => {
       next(err);
     });
 };
+
+
