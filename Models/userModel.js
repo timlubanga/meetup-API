@@ -31,6 +31,9 @@ userSchema = moongose.Schema({
     type: Boolean,
     default: true,
   },
+  photo: {
+    type: String,
+  },
   passwordResetToken: String,
   passwordTokenExpiresAt: Date,
   password: {
@@ -66,9 +69,6 @@ userSchema.pre('save', async function (next) {
   this.confirmPassword = undefined;
 });
 
-
-
-
 userSchema.methods.comparePasswords = async function (
   candidatePassword,
   userpassword
@@ -101,7 +101,7 @@ userSchema.methods.passChangeAfterTokenIssued = function (jwtIAT) {
   return false;
 };
 
-userSchema.methods.generateResetToken = function() {
+userSchema.methods.generateResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
   this.passwordResetToken = crypto
     .createHash('sha256')

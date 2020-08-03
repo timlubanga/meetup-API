@@ -13,6 +13,7 @@ const {
   updatePhotosOnly,
 } = require('../Controllers/meetupController');
 const questionRouter = require('../Routes/questionRoute');
+const { authorize, protect } = require('../Controllers/authController');
 
 const router = express.Router();
 
@@ -20,14 +21,27 @@ router.get('/upcoming', getupcomingMeetings);
 
 router
   .route('/')
-  .post(handleFilewithMulter, resizephotos, createMeetup)
+  .post(
+    protect,
+    authorize('admin'),
+    handleFilewithMulter,
+    resizephotos,
+    createMeetup
+  )
   .get(getAllMeetups)
-  .delete(deleteAllMeetups);
+  .delete(protect, authorize('admin'), deleteAllMeetups);
 router
   .route('/:meetupid')
-  .get(getOneMeetup)
-  .patch(handleFilewithMulter, resizephotos, updatePhotosOnly, updateMeetup)
-  .delete(deleteOneMeetup);
+  .get(protect, getOneMeetup)
+  .patch(
+    protect,
+    authorize('authorize'),
+    handleFilewithMulter,
+    resizephotos,
+    updatePhotosOnly,
+    updateMeetup
+  )
+  .delete(protect, authorize('admin'), deleteOneMeetup);
 router.use('/:meetupid/question', questionRouter);
 router.use('/:meetupid/rsvp', RSVPRouter);
 module.exports = router;

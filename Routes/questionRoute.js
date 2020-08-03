@@ -14,7 +14,7 @@ const {
   getNumberofQuesuestionsPostedByUser,
   topQuestionFeedsForuser,
 } = require('../Controllers/questionController');
-const { protect } = require('../Controllers/authController');
+const { protect, authorize } = require('../Controllers/authController');
 const { CheckifTheIdisValid } = require('../Controllers/factoryController');
 const Meetup = require('../Models/meetupModel');
 const Question = require('../Models/questionModel');
@@ -22,22 +22,39 @@ const Question = require('../Models/questionModel');
 router.use(protect);
 router.get(
   '/:meetupid/getquestionByupvotes',
+  authorize('admin'),
   CheckifTheIdisValid(Meetup, 'meetupid'),
   sortQuestionsPerupvotes
 );
-router.get('/totalquestionpostedByUser', getNumberofQuesuestionsPostedByUser);
-router.get('/topquestionFeedforUser', topQuestionFeedsForuser);
+router.get(
+  '/totalquestionpostedByUser',
+  authorize('user'),
+  getNumberofQuesuestionsPostedByUser
+);
+router.get(
+  '/topquestionFeedforUser',
+  authorize('user'),
+  topQuestionFeedsForuser
+);
 router
   .route('/')
-  .post(CheckifTheIdisValid(Meetup, 'meetupid'), createQuestion)
-  .get(getAllQuestions)
-  .delete(deleteAllQuestions);
+  .post(
+    authorize('user'),
+    CheckifTheIdisValid(Meetup, 'meetupid'),
+    createQuestion
+  )
+  .get(authorize('admin'), getAllQuestions)
+  .delete(authorize('admin'), deleteAllQuestions);
 
 router
   .route('/:id')
   .get(CheckifTheIdisValid(Question, 'id'), getQuestion)
-  .patch(CheckifTheIdisValid(Question, 'id'), updateQuestion)
-  .delete(CheckifTheIdisValid(Question, 'id'), deleteQuestion);
+  .patch(authorize('user'), CheckifTheIdisValid(Question, 'id'), updateQuestion)
+  .delete(
+    authorize('admin', 'user'),
+    CheckifTheIdisValid(Question, 'id'),
+    deleteQuestion
+  );
 
 router.use('/:questionId/votes', voteRouter);
 module.exports = router;
