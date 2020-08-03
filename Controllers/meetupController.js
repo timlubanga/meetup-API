@@ -17,20 +17,7 @@ exports.getAllMeetups = getAllRecords(Meetup);
 exports.deleteAllMeetups = deleteAllRecords(Meetup);
 const multer = require('multer');
 
-const fileFilter = (req, file, cb) => {
-  if (!file.mimetype.startsWith('image'))
-    return cb(new AppError('file not accepted'));
-  else cb(null, true);
-};
-
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'public/meetup_photos');
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname);
-//   },
-// });
+const fileFilter = require('../utils/filterImage');
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage, fileFilter });

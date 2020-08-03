@@ -11,30 +11,9 @@ const {
   createDoc,
 } = require('../Controllers/factoryController');
 
-// const storage1 = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, 'public/img/users');
-//   },
-//   filename: (req, file, cb) => {
-//     const id = `user-photo-${Date.now()}`;
-//     let mimetype = file.mimetype.split('/')[1];
-//     if (mimetype === 'msword') mimetype = 'doc';
-//     const filename = `${id}.${mimetype}`;
-//     cb(null, filename);
-//   }
-// });
 const storage = multer.memoryStorage();
 
-const filterFiles = (req, file, cb) => {
-  // The function should call `cb` with a boolean
-  // to indicate if the file should be accepted
-
-  // To reject this file pass `false`, like so:
-  if (!file.mimetype.startsWith('image'))
-    return cb(new AppError('file not accepted'));
-  // To accept the file pass `true`, like so:
-  else cb(null, true);
-};
+const filterFiles = require('../utils/filterImage');
 
 const upload = multer({ storage: storage, fileFilter: filterFiles });
 
@@ -42,13 +21,14 @@ exports.processFiles = upload.single('photo');
 
 exports.resizeUserPhoto = (req, res, next) => {
   if (!req.file) next();
-  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+
+  req.body.photo = `user-${req.user.id}-${Date.now()}.jpeg`;
 
   sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
-    .toFile(`public/img/users/${req.file.filename}`)
-    .then(() => {
+    .toFile(`public/users_photos/${req.body.photo}`)
+    .then((res) => {
       next();
     })
     .catch((err) => {
@@ -68,7 +48,13 @@ const filterBody = (body, ...allowedFields) => {
 };
 
 exports.filterBodyForUpdate = (req, res, next) => {
-  const newBody = filterBody(req.body, 'firstname', 'lastname', 'email');
+  const newBody = filterBody(
+    req.body,
+    'firstname',
+    'lastname',
+    'email',
+    'photo'
+  );
   req.body = newBody;
   // if (req.file) req.body.photo = req.file.filename;
   // req.params.id = req.user._id;
