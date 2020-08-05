@@ -2,13 +2,18 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const app = require('../../../server');
 const database = require('../../../dbConnection');
-console.log(process.env.NODE_ENV);
+const { databaseConnect } = require('../../../dbConnection');
 
-describe('Register a new users', () => {
+describe('ok, login successfully', () => {
   before((done) => {
     database
       .databaseConnect()
-      .then(() => done())
+      .then(() => {
+        return database.clear();
+      })
+      .then(() => {
+        done();
+      })
       .catch((err) => done(err));
   });
 
@@ -19,29 +24,34 @@ describe('Register a new users', () => {
       .catch((err) => done(err));
   });
 
-  it('Ok, login in a new user', (done) => {
+  it('first register a user', (done) => {
     request(app)
       .post('/api/v1/users/register')
       .send({
-        firstname: 'tigwggmothy',
+        firstname: 'tigwothy',
         lastname: 'luggbanga',
+        role: 'admin',
         confirmPassword: 'smartjoker123',
         password: 'smartjoker123',
-        email: 'agwaaambo@gmail.com',
+        email: 'agwaaamboer@gmail.com',
       })
       .then((res) => {
         request(app)
           .post('/api/v1/users/login')
           .send({
             password: 'smartjoker123',
-            email: 'agwaaambo@gmail.com',
+            email: 'agwaaamboer@gmail.com',
           })
           .then((res) => {
             const body = res.body;
-            expect(body).to.have.property('token');
-            done();
+            expect(200);
+            return done();
           });
       })
-      .catch((err) => done(err));
+
+      .catch((err) => {
+        console.log(err);
+        done(err);
+      });
   });
 });

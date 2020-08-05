@@ -13,16 +13,19 @@ const createToken = (user) => {
 exports.createUser = (req, res, next) => {
   Users.create(req.body)
     .then(async (user) => {
-      const email = await new Email(
-        user.email,
-        'registration successful'
-      ).sendSuccessRegistration(user.firstname);
-      if (email.responseCode == 535)
-        return next(new AppError(email.response, email.responseCode));
+      if (process.env.NODE_ENV == !'testing') {
+        const email = await new Email(
+          user.email,
+          'registration successful'
+        ).sendSuccessRegistration(user.firstname);
+        if (email.responseCode == 535)
+          return next(new AppError(email.response, email.responseCode));
+      }
       const token = createToken(user);
-      user = deselectPassword(user)
+      user = deselectPassword(user);
       res.status(202).json({ data: user, token: token });
     })
+
     .catch((err) => {
       return next(new AppError(err, 400));
     });
