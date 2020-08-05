@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
+const mongod = new MongoMemoryServer();
 
 let ConnectString = `mongodb+srv://timlubs:${process.env.PASS}@cluster0-bry7y.mongodb.net/meetup?retryWrites=true&w=majority`;
 
 const databaseConnect = () => {
   return new Promise(async (resolve, reject) => {
     if (process.env.NODE_ENV == 'testing') {
-      const { MongoMemoryServer } = require('mongodb-memory-server');
-      const mongod = new MongoMemoryServer();
       const uri = await mongod.getUri();
       const port = await mongod.getPort();
       const dbPath = await mongod.getDbPath();
@@ -19,9 +19,9 @@ const databaseConnect = () => {
           useCreateIndex: true,
         })
         .then((res, err) => {
-          if (err) return reject(err);
+          if (err) reject(err);
 
-          resolve(res);
+          resolve('connected bitches');
         });
     } else {
       mongoose
@@ -44,4 +44,8 @@ const close = () => {
   return mongoose.disconnect();
 };
 
-module.exports = { databaseConnect, close };
+const clear = () => {
+  return mongoose.connection.dropDatabase();
+};
+
+module.exports = { databaseConnect, clear, close };

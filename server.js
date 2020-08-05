@@ -10,10 +10,19 @@ if (process.env.NODE_ENV == 'clearing') {
   const deleteData = require('./script');
   deleteData();
 }
-const port = process.env.PORT || 3000;
+
+let port = 0;
+console.log(process.env.NODE_ENV);
+
+if (
+  process.env.NODE_ENV === 'development' ||
+  process.env.NODE_ENV === 'production'
+) {
+  port = process.env.PORT || 3000;
+}
 app.listen(port, () => {
   console.log(
-    `the sever is running on port ${process.env.PORT} your mail is ${app.locals.email}`
+    `the sever is running on port ${port} your mail is ${app.locals.email}`
   );
 });
 
