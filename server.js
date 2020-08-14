@@ -2,7 +2,14 @@ require('dotenv').config({ path: './env/config.env' });
 
 //connect the application to the database
 if (process.env.NODE_ENV == 'production' || 'development') {
-  const dbConnect = require('./dbConnection').databaseConnect();
+  require('./dbConnection')
+    .databaseConnect()
+    .then((msg) => {
+      console.log(msg);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 const app = require('./app');

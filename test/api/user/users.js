@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const app = require('../../../server');
 const database = require('../../../dbConnection');
-const { databaseConnect } = require('../../../dbConnection');
+const { adminRegister, userRegister } = require('../test_data/data');
 
 describe('Admin should be able to acess user records', () => {
   let token = null;
@@ -16,26 +16,12 @@ describe('Admin should be able to acess user records', () => {
       .then(() => {
         request(app)
           .post('/api/v1/users/register')
-          .send({
-            firstname: 'tigwggmothy',
-            lastname: 'luggbanga',
-            role: 'admin',
-            confirmPassword: 'smartjoker123',
-            password: 'smartjoker123',
-            email: 'agwaaambo@gmail.com',
-          })
+          .send(adminRegister)
           .then((res) => {
             token = res.body.token;
             request(app)
               .post('/api/v1/users/register')
-              .send({
-                firstname: 'ann',
-                lastname: 'simaloi',
-                role: 'user',
-                confirmPassword: 'smartjoker123',
-                password: 'smartjoker123',
-                email: 'ann@gmail.com',
-              })
+              .send(userRegister)
               .then((res) => {
                 data = res.body;
                 done();

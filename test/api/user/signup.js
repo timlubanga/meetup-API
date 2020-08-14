@@ -1,40 +1,21 @@
 const expect = require('chai').expect;
 const request = require('supertest');
 const app = require('../../../server');
-const database = require('../../../dbConnection');
-const { databaseConnect } = require('../../../dbConnection');
+
+const {
+  adminRegister,
+  invaliUserdEmail,
+  UserinvalidPassword,
+  userRequiredField,
+} = require('../test_data/data');
+const databaseConnClr = require('../test_databaseConnectandClear');
 
 describe('/POST/register', () => {
-  before((done) => {
-    database
-      .databaseConnect()
-      .then(() => {
-        return database.clear();
-      })
-      .then((res) => {
-        done();
-      })
-      .catch((err) => done(err));
-  });
-
-  after((done) => {
-    database
-      .close()
-      .then(() => done())
-      .catch((err) => done(err));
-  });
-
+  databaseConnClr();
   it('successfully register a user with email password', (done) => {
     request(app)
       .post('/api/v1/users/register')
-      .send({
-        firstname: 'tigwggmothy',
-        lastname: 'luggbanga',
-        role: 'admin',
-        confirmPassword: 'smartjoker123',
-        password: 'smartjoker123',
-        email: 'timlubs@gmail.com',
-      })
+      .send(adminRegister)
       .then((res) => {
         const body = res.body;
         expect(body).to.have.property('token');
@@ -51,14 +32,7 @@ describe('/POST/register', () => {
   it('check invalid mailerror', (done) => {
     request(app)
       .post('/api/v1/users/register')
-      .send({
-        firstname: 'tigwggmothy',
-        lastname: 'luggbanga',
-        role: 'admin',
-        confirmPassword: 'smartjoker123',
-        password: 'smartjoker123',
-        email: 'timlubsgmail.com',
-      })
+      .send(invaliUserdEmail)
       .then((res) => {
         expect(res.status).equals(400);
         expect(res.body.status).equals('fail');
@@ -78,14 +52,7 @@ describe('/POST/register', () => {
   it('check for input validation', (done) => {
     request(app)
       .post('/api/v1/users/register')
-      .send({
-        firstname: 'tigwggmothy',
-        lastname: 'luggbanga',
-        role: 'admin',
-        confirmPassword: 'smartjoker123',
-        password: 'smartjoker123e',
-        email: 'agwaaambo@gmail.com',
-      })
+      .send(UserinvalidPassword)
       .then((res) => {
         expect(res.status).equals(400);
         expect(res.body.status).equals('fail');
@@ -104,11 +71,7 @@ describe('/POST/register', () => {
   it('check for input validation, validates required fields', (done) => {
     request(app)
       .post('/api/v1/users/register')
-      .send({
-        firstname: 'tigwggmothy',
-        password: 'smartjoker123e',
-        email: 'agwaaambo@gmail.com',
-      })
+      .send(userRequiredField)
       .then((res) => {
         expect(res.status).equals(400);
         expect(res.body.status).equals('fail');
