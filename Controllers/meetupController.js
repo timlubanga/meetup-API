@@ -26,6 +26,7 @@ exports.handleFilewithMulter = upload.array('photos');
 exports.resizephotos = (req, res, next) => {
   if (req.params.meetupid) {
     req.params.id = req.params.meetupid;
+    console.log(req.params.id);
   }
   if (!req.files) return next();
   if (!req.files.length) return next();
