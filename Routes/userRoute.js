@@ -28,7 +28,7 @@ router.route('/').get(authorize('admin'), getAllUsers);
 router
   .route('/:id')
   .patch(
-    authorize('user'),
+    authorize('user', 'admin'),
     processFiles,
     resizeUserPhoto,
     filterBodyForUpdate,

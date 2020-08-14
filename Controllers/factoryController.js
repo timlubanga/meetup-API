@@ -1,14 +1,14 @@
 const AppError = require('../utils/appError');
 const mongoose = require('mongoose');
 exports.deleteOneRecord = (Model) => (req, res, next) => {
-  if (req.params.meetupid) req.params.id = req.params.id;
+  if (req.params.meetupid) req.params.id = req.params.meetupid;
   Model.findByIdAndDelete(req.params.id)
 
     .then((data) => {
       if (!data) {
         return next(new AppError('The record is not found', 404));
       } else {
-        res.json({
+        res.status(204).json({
           status: 204,
           message: 'deleted',
         });
@@ -122,6 +122,7 @@ exports.updateRecord = (Model, options = {}) => (req, res, next) => {
 
   if (!Object.values(req.body).length || !Object.keys(req.body).length) {
     const err = new AppError('Please specify fields', 400);
+
     return next(err);
   }
 
@@ -133,14 +134,16 @@ exports.updateRecord = (Model, options = {}) => (req, res, next) => {
       if (!doc) {
         return next(
           new AppError(
-            'An internal error occured, please check your id to make sure it is correct'
+            'An internal error occured, please check your id to make sure it is correct',
+            400
           )
         );
-      } else {
-        res.status(202).json({ message: 'success', doc });
       }
+
+      return res.status(202).json(doc);
     })
     .catch((err) => {
+      console.log(err);
       return next(err);
     });
 };

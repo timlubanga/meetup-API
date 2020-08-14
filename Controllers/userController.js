@@ -20,8 +20,7 @@ const upload = multer({ storage: storage, fileFilter: filterFiles });
 exports.processFiles = upload.single('photo');
 
 exports.resizeUserPhoto = (req, res, next) => {
-  if (!req.file) next();
-
+  if (!req.file) return next();
   req.body.photo = `user-${req.user.id}-${Date.now()}.jpeg`;
 
   sharp(req.file.buffer)
@@ -56,6 +55,7 @@ exports.filterBodyForUpdate = (req, res, next) => {
     'photo'
   );
   req.body = newBody;
+
   // if (req.file) req.body.photo = req.file.filename;
   // req.params.id = req.user._id;
   next();

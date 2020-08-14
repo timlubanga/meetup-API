@@ -35,7 +35,7 @@ router
   .get(protect, getOneMeetup)
   .patch(
     protect,
-    authorize('authorize'),
+    authorize('admin'),
     handleFilewithMulter,
     resizephotos,
     updatePhotosOnly,

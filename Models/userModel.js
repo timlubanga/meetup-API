@@ -2,6 +2,7 @@ const moongose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const AppError = require('../utils/appError');
 userSchema = moongose.Schema({
   firstname: {
     type: String,
@@ -59,6 +60,16 @@ userSchema = moongose.Schema({
     },
   },
 });
+
+// userSchema.pre('save', function (next) {
+//   const isSame = this.password == this.confirmPassword;
+
+//   if (!isSame) {
+//     console.log('passwords not the same');
+//     return next(new AppError('passwords are not the same', 500));
+//   }
+//   next();
+// });
 
 userSchema.pre('save', async function (next) {
   //check whether the password has been changed

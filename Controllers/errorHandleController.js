@@ -19,7 +19,10 @@ const sendToProduction = (err, req, res) => {
 
 const errorHandler = (err, req, res, next) => {
   let error = err;
-  if (process.env.NODE_ENV == 'development')
+  if (
+    process.env.NODE_ENV == 'development' ||
+    process.env.NODE_ENV == 'testing'
+  )
     return sendToDevelopment(err, req, res);
   if (process.env.NODE_ENV == 'production') {
     if (err.name == 'CastError') {

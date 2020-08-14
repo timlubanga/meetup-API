@@ -13,7 +13,7 @@ const createToken = (user) => {
 exports.createUser = (req, res, next) => {
   Users.create(req.body)
     .then(async (user) => {
-      if (process.env.NODE_ENV == !'testing') {
+      if (process.env.NODE_ENV !== 'testing') {
         const email = await new Email(
           user.email,
           'registration successful'
@@ -38,10 +38,13 @@ exports.loginUser = (req, res) => {
       .json({ message: 'please provide email or password' });
   Users.findOne({ email: req.body.email })
     .select('+password')
-    .then((user) => {
+    .then(async (user) => {
       if (!user) return res.status(404).json({ message: 'no user found' });
+      const correct = await user.comparePasswords(
+        req.body.password,
+        user.password
+      );
 
-      const correct = user.comparePasswords(user.password, req.body.password);
       if (correct) {
         const newToken = createToken(user);
         user = deselectPassword(user);
