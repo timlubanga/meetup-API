@@ -1,15 +1,14 @@
-sudo:false
-
-language:node_js
-
+language: node_js
 node_js:
-  - node
-
-install:
-  -npm ci
-
+  - 12
+before_install: export PORT=3300
+  export NODE_ENV="development"
+  export SECRET="timothy"
+  export PASS="smartjoker123"
+  export SECRETKEY="timothylubangaMyguy"
+  export USERNAME="expertwriterz.inc@gmail.com"
+  export EXPIRES_IN=4h
+  export PASSWORD="husna1991"
+  export SERVICE="gmail"
 script:
-  -npm run test
-
-notifications:
-  email:false
+  - npm run test
