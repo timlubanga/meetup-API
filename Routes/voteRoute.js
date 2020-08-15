@@ -25,6 +25,7 @@ router.post(
 );
 router.post(
   '/downvote',
+
   authorize('user'),
   CheckifTheIdisValid(Question, 'questionId'),
   CheckVotingStatusandProvideandOption('downvote'),
