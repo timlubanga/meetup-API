@@ -8,7 +8,7 @@
     "build": "NODE_ENV=production nodemon server.js",
     "clear": "NODE_ENV=clearing nodemon server.js",
     "debug": "ndb server.js",
-    "test": "NODE_ENV=testing  nyc  mocha  --recursive  --timeout 250000   ---exit",
+    "test": "NODE_ENV=testing  nyc  mocha  --recursive  --timeout 250000   ---exit && ava",
     "test-coverage": " NODE_ENV=testing nyc mocha report --reporter=coverage | coveralls ",
     "coverage": " NODE_ENV =testing istanbul cover _mocha -- -R spec | coveralls --verbose"
   },
@@ -37,6 +37,7 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
+    "ava": "^3.11.1",
     "coveralls": "^3.1.0",
     "istanbul": "^0.4.5",
     "jscover": "^1.0.0",
