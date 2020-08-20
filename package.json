@@ -37,7 +37,6 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
-    "ava": "^3.11.1",
     "coveralls": "^3.1.0",
     "istanbul": "^0.4.5",
     "jscover": "^1.0.0",
