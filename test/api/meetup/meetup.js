@@ -2,10 +2,10 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const app = require('../../../server');
 const database = require('../../../dbConnection');
+const { adminRegister, newMeetup } = require('../test_data/data');
 
 describe('admin should be able to create a meetup, update,delete, and find records', () => {
   let token = null;
-  let data = null;
   let meetupid = null;
   before((done) => {
     database
@@ -16,31 +16,10 @@ describe('admin should be able to create a meetup, update,delete, and find recor
       .then(() => {
         request(app)
           .post('/api/v1/users/register')
-          .send({
-            firstname: 'tigwggmothy',
-            lastname: 'luggbanga',
-            role: 'admin',
-            confirmPassword: 'smartjoker123',
-            password: 'smartjoker123',
-            email: 'agwaaambo@gmail.com',
-          })
+          .send(adminRegister)
           .then((res) => {
             token = res.body.token;
-            request(app)
-              .post('/api/v1/users/register')
-              .send({
-                firstname: 'ann',
-                lastname: 'simaloi',
-                role: 'user',
-                confirmPassword: 'smartjoker123',
-                password: 'smartjoker123',
-                email: 'ann@gmail.com',
-              })
-              .then((res) => {
-                data = res.body;
-                done();
-              })
-              .catch((err) => done(err));
+            done();
           });
       });
   });
@@ -54,10 +33,7 @@ describe('admin should be able to create a meetup, update,delete, and find recor
     request(app)
       .post('/api/v1/meetup')
       .auth(token, { type: 'bearer' })
-      .send({
-        topic: 'React Native for 2020',
-        happeningOn: '8/21/2020',
-      })
+      .send(newMeetup)
       .then((data) => {
         expect(data.body.status).equals('201');
         expect(data.body.data.topic).equals('React Native for 2020');
@@ -144,6 +120,33 @@ describe('admin should be able to create a meetup, update,delete, and find recor
       .auth(token, { type: 'bearer' })
       .then((data) => {
         expect(data.status).equals(204);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+        done(err);
+      });
+  });
+
+  it(' Delete/ deny permission of deleting a protected resource', (done) => {
+    request(app)
+      .delete(`/api/v1/meetup/${meetupid}`)
+      .then((data) => {
+        expect(data.body.Message).equals('no permission, please sign in');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+        done(err);
+      });
+  });
+
+  it(' Delete/ should be able to throw a delete error for invalid error', (done) => {
+    request(app)
+      .delete(`/api/v1/meetup/${12345689}`)
+      .auth(token, { type: 'bearer' })
+      .then((data) => {
+        expect(data.status).equals(500);
         done();
       })
       .catch((err) => {

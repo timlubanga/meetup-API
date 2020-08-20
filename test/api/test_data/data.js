@@ -56,3 +56,18 @@ exports.userRequiredField = {
   password: 'smartjoker123e',
   email: 'agwaaambo@gmail.com',
 };
+
+exports.newMeetup = {
+  topic: 'React Native for 2020',
+  happeningOn: '8/21/2020',
+};
+
+exports.newQuestion = {
+  title: 'what is we start using the same framework',
+  body:
+    'fuck it this is the question have always wanted to ask for a long time condebody',
+};
+
+exports.updateQuestionData = {
+  title: 'what s the best framework for web development',
+};
