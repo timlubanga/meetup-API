@@ -8,7 +8,7 @@
     "build": "NODE_ENV=production nodemon server.js",
     "clear": "NODE_ENV=clearing nodemon server.js",
     "debug": "ndb server.js",
-    "test": "NODE_ENV=testing  nyc  mocha  --recursive  --timeout 250000   ---exit && ava",
+    "test": "NODE_ENV=testing  nyc  mocha  --recursive  --timeout 250000   ---exit",
     "test-coverage": " NODE_ENV=testing nyc mocha report --reporter=coverage | coveralls ",
     "coverage": " NODE_ENV =testing istanbul cover _mocha -- -R spec | coveralls --verbose"
   },
