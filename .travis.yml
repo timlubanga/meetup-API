@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - 12
+env:
+  global:
+    - CC_TEST_REPORTER_ID=24095fdba45771e0b30423849fdab31a5ad6965db8daa34452367ef6ff5b8acb
 before_install: export PORT=3300
   export NODE_ENV="development"
   export SECRET="timothy"
@@ -10,5 +13,12 @@ before_install: export PORT=3300
   export EXPIRES_IN=4h
   export PASSWORD="husna1991"
   export SERVICE="gmail"
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
+  - bundle exec rspec
   - npm run test
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
