@@ -11,6 +11,7 @@ const { protect, authorize } = require('../Controllers/authController');
 
 const { CheckifTheIdisValid } = require('../Controllers/factoryController');
 const Question = require('../Models/questionModel');
+const Vote = require('../Models/voteModel');
 
 const router = express.Router({ mergeParams: true });
 
@@ -35,7 +36,7 @@ router.get('/', authorize('admin'), getALLVotes);
 router.delete(
   '/:id',
   authorize('admin'),
-  CheckifTheIdisValid(Question, 'id'),
+  CheckifTheIdisValid(Vote, 'id'),
   deleteAvote
 );
 

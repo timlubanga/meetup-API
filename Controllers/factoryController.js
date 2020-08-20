@@ -143,14 +143,12 @@ exports.updateRecord = (Model, options = {}) => (req, res, next) => {
       return res.status(202).json(doc);
     })
     .catch((err) => {
-      console.log(err);
       return next(err);
     });
 };
 
 exports.CheckifTheIdisValid = (Model, paramId) => {
   return (req, res, next) => {
-    console.log(req.params);
     if (!req.params) {
       return next();
     }

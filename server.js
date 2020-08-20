@@ -1,7 +1,10 @@
 require('dotenv').config({ path: './env/config.env' });
 
 //connect the application to the database
-if (process.env.NODE_ENV == 'production' || 'development') {
+if (
+  process.env.NODE_ENV == 'production' ||
+  process.env.NODE_ENV == 'development'
+) {
   require('./dbConnection')
     .databaseConnect()
     .then((msg) => {

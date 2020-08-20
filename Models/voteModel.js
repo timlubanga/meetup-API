@@ -38,27 +38,35 @@ voteSchema.statics.CalculateDownVoteandUpvotes = function (questionId, next) {
         votes: 1,
       },
     },
-  ]).then((results) => {
-    let upvotes = 0;
-    let downvotes = 0;
-    if (results[0]._id == 'upvote') upvotes = results[0].votes;
-    if (results[0]._id == 'downvote') downvotes = results[0].votes;
-    if (results[1]) downvotes = results[1].votes;
+  ])
+    .then((results) => {
+      let upvotes = 0;
+      let downvotes = 0;
 
-    const votes = sumVotes(upvotes, downvotes);
-    Question.findByIdAndUpdate(questionId, {
-      upvotes: upvotes,
-      downvotes: downvotes,
-      votes: votes,
-    })
-      .then(() => {
-        console.log('question updated');
+      if (results.length == 0) {
+        upvotes = 0;
+        downvotes = 0;
+      } else {
+        if (results[0]._id == 'upvote') upvotes = results[0].votes;
+        if (results[0]._id == 'downvote') downvotes = results[0].votes;
+        if (results[1]) downvotes = results[1].votes;
+      }
+
+      const votes = sumVotes(upvotes, downvotes);
+      Question.findByIdAndUpdate(questionId, {
+        upvotes: upvotes,
+        downvotes: downvotes,
+        votes: votes,
       })
-      .catch((err) => {
-        console.log('something went wrong updating the question');
-        next(err)
-      });
-  });
+        .then(() => {
+          console.log('question updated');
+        })
+        .catch((err) => {
+          console.log('something went wrong updating the question');
+          next(err);
+        });
+    })
+    .catch((err) => console.log(err));
 };
 
 voteSchema.post('save', function (next) {
@@ -74,7 +82,6 @@ voteSchema.pre(/^findOneAnd/, async function (next) {
 });
 
 voteSchema.post(/^findOneAnd/, function (res, next) {
-  console.log('updating in progress');
   this.vote.constructor.CalculateDownVoteandUpvotes(this.vote.question, next);
   next();
 });
