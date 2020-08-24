@@ -59,7 +59,7 @@ exports.userRequiredField = {
 
 exports.newMeetup = {
   topic: 'React Native for 2020',
-  happeningOn: '8/21/2020',
+  happeningOn: '12/21/2021',
 };
 
 exports.newQuestion = {
