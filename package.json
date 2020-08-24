@@ -2,7 +2,7 @@
   "name": "meetup-api",
   "version": "1.0.0",
   "description": "meetup api",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
     "build": "NODE_ENV=production nodemon server.js",
@@ -35,6 +35,10 @@
     "pug": "^3.0.0",
     "sharp": "^0.25.4",
     "validator": "^13.1.1"
+  },
+  "engines": {
+    "node": "14.2.0",
+    "npm": "6.14.4"
   },
   "devDependencies": {
     "istanbul": "^0.4.5",
