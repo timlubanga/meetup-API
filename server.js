@@ -30,10 +30,10 @@ if (
 ) {
   port = process.env.PORT || 3000;
 }
-app.listen(port, () => {
-  console.log(
-    `the sever is running on port ${port} your mail is ${app.locals.email}`
-  );
-});
+// app.listen(port, () => {
+//   console.log(
+//     `the sever is running on port ${port} your mail is ${app.locals.email}`
+//   );
+// });
 
 module.exports = app;
