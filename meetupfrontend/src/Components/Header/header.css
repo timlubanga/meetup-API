@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  
+}
+.heading {
+  text-align: left;
+  line-height: 1.1;
+  letter-spacing: -0.25rem;
+  font-weight: 900;
+  padding-top: 32px;
+}
+
+
+
+@media screen and (min-width: 1200px) {
+  .heading {
+    font-size: 64px;
+  }
+}
+
+
+@media screen and (min-width: 600px) {
+  .heading {
+    font-size: 56px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .heading {
+    font-size: 22px;
+  }
+}
