@@ -1,7 +1,7 @@
 [
   {
-    "topic": "React Native for 2020",
-    "happeningOn": "12/21/2020",
+    "topic": "React Native for 2023",
+    "happeningOn": "12/21/2023",
     "category": "technology & engineering",
     "location": {
       "address": " andela, kenya, TRM Drive"
@@ -10,7 +10,7 @@
   },
   {
     "topic": "React hooks for advanced Developers",
-    "happeningOn": "11/18/2020",
+    "happeningOn": "11/18/2023",
     "category": "technology & engineering",
     "location": {
       "address": "Ihub kenya"
@@ -19,7 +19,7 @@
   },
   {
     "topic": "cyber security in backing",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2023",
     "category": "technology & engineering",
     "location": {
       "address": " Technobrain center, nairobi CBD"
@@ -37,7 +37,7 @@
   },
   {
     "topic": "cryptocurrency trading",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2023",
     "category": "technology & engineering",
     "location": {
       "address": " Bombas of kenya"
@@ -46,7 +46,7 @@
   },
   {
     "topic": "how to excell in exams",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2023",
     "category": "learning",
     "location": {
       "address": " online, Zoom meeting"
@@ -55,7 +55,7 @@
   },
   {
     "topic": "How to improve your reading habit",
-    "happeningOn": "12/10/2020",
+    "happeningOn": "12/10/2023",
     "category": "learning",
     "location": {
       "address": " online, zoom meeting"
@@ -64,7 +64,7 @@
   },
   {
     "topic": "mastering new skills",
-    "happeningOn": "11/21/2020",
+    "happeningOn": "11/21/2023",
     "category": "learning",
     "location": {
       "address": "online, zoom meeting"
@@ -73,7 +73,7 @@
   },
   {
     "topic": "impriving your IQ level",
-    "happeningOn": "12/11/2020",
+    "happeningOn": "12/11/2023",
     "category": "learning",
     "location": {
       "address": " online, zoom meeting"
@@ -81,8 +81,8 @@
     "images": ["learningfour.jpg"]
   },
   {
-    "topic": "React Native for 2020",
-    "happeningOn": "12/21/2020",
+    "topic": "React Native for 2023",
+    "happeningOn": "12/21/2023",
     "category": "learning",
     "location": {
       "address": " online, zoom meeting"
@@ -91,7 +91,7 @@
   },
   {
     "topic": "loosing calories",
-    "happeningOn": "10/21/2020",
+    "happeningOn": "10/21/2023",
     "category": "health and wellness",
     "location": {
       "address": " online,zoom meeting"
@@ -100,7 +100,7 @@
   },
   {
     "topic": "Boosting immunity system",
-    "happeningOn": "9/21/2020",
+    "happeningOn": "9/21/2023",
     "category": "health and wellness",
     "location": {
       "address": "online, zoom meeting"
@@ -109,7 +109,7 @@
   },
   {
     "topic": "physical exercises routlines",
-    "happeningOn": "10/29/2020",
+    "happeningOn": "10/29/2023",
     "category": "health and wellness",
     "location": {
       "address": " online, zoom meeting"
@@ -118,7 +118,7 @@
   },
   {
     "topic": "eating healthy to keep low body fat",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2023",
     "category": "health and wellness",
     "location": {
       "address": " online, zoom meating"
@@ -136,7 +136,7 @@
   },
   {
     "topic": "ngong hills hiking",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2023",
     "category": "outdoor and adventure",
     "location": {
       "address": " ngong hills"
@@ -145,7 +145,7 @@
   },
   {
     "topic": "ngong hills hiking",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2024",
     "category": "outdoor and adventure",
     "location": {
       "address": " ngong hills"
@@ -154,7 +154,7 @@
   },
   {
     "topic": "friends picnic",
-    "happeningOn": "9/15/2020",
+    "happeningOn": "9/15/2026",
     "category": "outdoor and adventure",
     "location": {
       "address": "evergreen, Kiambu road"
@@ -163,7 +163,7 @@
   },
   {
     "topic": "Skiing",
-    "happeningOn": "9/29/2020",
+    "happeningOn": "9/29/2025",
     "category": "outdoor and adventure",
     "location": {
       "address": " fourtheen falls"
@@ -172,7 +172,7 @@
   },
   {
     "topic": "friends gateway, marine experience",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2023",
     "category": "outdoor and adventure",
     "location": {
       "address": " Diani"
@@ -181,7 +181,7 @@
   },
   {
     "topic": "nature walk",
-    "happeningOn": "10/15/2020",
+    "happeningOn": "10/15/2023",
     "category": "outdoor and adventure",
     "location": {
       "address": " karura forest, kiambu road"
@@ -190,7 +190,7 @@
   },
   {
     "topic": "Tsavo park experience",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2023",
     "category": "outdoor and adventure",
     "location": {
       "address": " tsavo national park"
@@ -199,7 +199,7 @@
   },
   {
     "topic": "career advancement tips",
-    "happeningOn": "12/12/2020",
+    "happeningOn": "12/12/2023",
     "category": "careers & Business",
     "location": {
       "address": " online, zoom meeting"
@@ -208,7 +208,7 @@
   },
   {
     "topic": "How to be a good boss",
-    "happeningOn": "12/14/2020",
+    "happeningOn": "12/14/2023",
     "category": "careers & Business",
     "location": {
       "address": " online, zoom meeting"
@@ -217,7 +217,7 @@
   },
   {
     "topic": "motivating employees",
-    "happeningOn": "12/21/2020",
+    "happeningOn": "12/21/2023",
     "category": "careers & Business",
     "location": {
       "address": " online, zoom meeting"
@@ -226,7 +226,7 @@
   },
   {
     "topic": "traits of a successful business person",
-    "happeningOn": "12/5/2020",
+    "happeningOn": "12/5/2023",
     "category": "careers & Business",
     "location": {
       "address": " online, zoom meeting"

@@ -70,7 +70,7 @@ describe('admin should be able to create a meetup, update,delete, and find recor
       .post('/api/v1/meetup')
       .auth(token, { type: 'bearer' })
       .field('topic', 'React Native for 2020')
-      .field('happeningOn', '9/21/2020')
+      .field('happeningOn', '9/21/2022')
       .attach('photos', 'public/meetup-photos/photo-1595376739905-1.jpeg')
       .then((data) => {
         meetupid = data.body.data._id;
