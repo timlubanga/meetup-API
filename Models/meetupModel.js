@@ -23,8 +23,8 @@ meetupSchema = moongose.Schema(
 
       coordinates: [Number],
       address: {
-        type:String,
-        required:[true, "please fill out the address"]
+        type:String
+        
       }
     },
 

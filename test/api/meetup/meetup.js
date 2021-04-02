@@ -52,6 +52,7 @@ describe('admin should be able to create a meetup, update,delete, and find recor
       .send({
         topic: 'React Native for 2020',
         happeningOn: '4/21/2020',
+        category: 'careers & Business',
       })
       .then((data) => {
         expect(data.body.err.message).equals(
@@ -70,9 +71,11 @@ describe('admin should be able to create a meetup, update,delete, and find recor
       .post('/api/v1/meetup')
       .auth(token, { type: 'bearer' })
       .field('topic', 'React Native for 2020')
+      .field('category', 'learning')
       .field('happeningOn', '9/21/2022')
-      .attach('photos', 'public/meetup-photos/photo-1595376739905-1.jpeg')
+      .attach('photos', 'public/meetup-photos/pf.jpeg')
       .then((data) => {
+        console.log(data);
         meetupid = data.body.data._id;
         expect(data.body.data['images'].length).equals(1);
         done();
@@ -88,7 +91,7 @@ describe('admin should be able to create a meetup, update,delete, and find recor
       .patch(`/api/v1/meetup/${meetupid}`)
       .auth(token, { type: 'bearer' })
       .field('topic', 'React Native and flutter for 2020')
-      .attach('photos', 'public/meetup-photos/photo-1595376739905-1.jpeg')
+      .attach('photos', 'public/meetup-photos/pf.jpeg')
       .then((data) => {
         expect(data.body.images.length).equals(2);
         expect(data.status).equals(202);
