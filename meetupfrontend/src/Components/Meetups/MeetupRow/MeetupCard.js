@@ -11,11 +11,11 @@ import MeetupActionPhotos from './meetupPhotoAction';
 const useStyles = makeStyles({
   root: {
     width: 280,
-    scrollBehavior: "smooth",
+    scrollBehavior: 'smooth',
     transition: ' all ease-out 0.3s ',
     '&:hover': {
       transform: 'scale(1.04)',
-    },
+    }
 
     
   },
@@ -25,8 +25,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MeetupCard({ cardTitle, imageName }) {
+function MeetupCard({ cardTitle, imageName }) {
   const classes = useStyles();
+  console.log(classes)
 
   return (
     <Card className={classes.root}>
@@ -57,3 +58,6 @@ export default function MeetupCard({ cardTitle, imageName }) {
     </Card>
   );
 }
+
+
+export default React.memo(MeetupCard)

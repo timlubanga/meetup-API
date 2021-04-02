@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Logo from '../Logo/Logo';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../App';
-
+import Popover from '../Popover/Popover';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -22,33 +22,40 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
   const history = useHistory();
-  const { data } = useContext(UserContext);
+  const { state } = useContext(UserContext);
 
   const handleLinkRedirect = (link) => {
     history.push(`/${link}`);
   };
 
+  const firstname = state.data.firstname ? state.data.firstname : null;
+  const lastname = state.data.lastname ? state.data.lastname : null;
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           <Logo link={handleLinkRedirect} />
-          
-          <Button
-            color="inherit"
-            className={classes.buttonText}
-            onClick={() => handleLinkRedirect('login')}
-          >
-            
-            Login
-          </Button>
-          <Button
-            color="inherit"
-            className={classes.buttonText}
-            onClick={() => handleLinkRedirect('signup')}
-          >
-            Signup
-          </Button>
+
+          {state.token && <Popover first={firstname} last={lastname} />}
+          {state.token ? null : (
+            <>
+              <Button
+                color="inherit"
+                className={classes.buttonText}
+                onClick={() => handleLinkRedirect('login')}
+              >
+                Login
+              </Button>
+
+              <Button
+                color="inherit"
+                className={classes.buttonText}
+                onClick={() => handleLinkRedirect('signup')}
+              >
+                Signup
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </div>

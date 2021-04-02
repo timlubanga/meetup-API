@@ -50,7 +50,7 @@ userSchema = moongose.Schema({
   },
   confirmPassword: {
     type: String,
-    required: [true, 'please confirm your password'],
+    // required: [true, 'please confirm your password'],
     validate: {
       //runs on create and save
       validator: function (el) {

@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import axios from '../../axios';
 import { UserContext } from '../../App';
 import { Alert } from '@material-ui/lab';
+import { useHistory } from 'react-router-dom';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -50,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const history = useHistory();
   const { dispatch, state } = useContext(UserContext);
   const [data, setData] = useState({
     email: '',
@@ -68,11 +70,13 @@ export default function SignIn() {
         },
       });
       const response = res.data;
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('data', JSON.stringify(response.data));
       dispatch({
         type: 'SIGN_SUCESS',
         payload: { token: response.token, data: response.data },
       });
-      
+      history.replace('/userprofile');
     } catch (error) {
       dispatch({ type: 'SIGN_IN_ERROR' });
     }
@@ -96,7 +100,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-  {state.error &&<Alert severity="error">{state.error}</Alert>}
+        {state.error && <Alert severity="error">{state.error}</Alert>}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"

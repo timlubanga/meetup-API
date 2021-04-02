@@ -1,4 +1,5 @@
 require('dotenv').config({ path: './env/config.env' });
+// const dataDelete = require('./script');
 
 //connect the application to the database
 if (
@@ -9,6 +10,7 @@ if (
     .databaseConnect()
     .then((msg) => {
       console.log(msg);
+      // dataDelete();
     })
     .catch((err) => {
       console.log(err);

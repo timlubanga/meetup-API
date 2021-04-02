@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography} from '@material-ui/core';
 import MeetupCard from './MeetupCard';
 import { makeStyles } from '@material-ui/styles';
 import { ArrowForward, ArrowBack } from '@material-ui/icons';
@@ -9,6 +9,7 @@ const useStyles = makeStyles({
   root: {
     marginTop: '60px',
   },
+
   itemoverflow: {
     overflowX: 'hidden',
     position: 'relative',
@@ -81,6 +82,7 @@ const MeeetupRow = ({ title, meetupData }) => {
     }
   };
   const classes = useStyles();
+  
   return (
     <div className={classes.root}>
       <Grid container direction="column" spacing={4}>

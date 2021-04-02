@@ -33,11 +33,11 @@ exports.resizephotos = (req, res, next) => {
   req.body.images = [];
   Promise.all(
     req.files.map(async (file, index) => {
-      const filename = `photo-${Date.now()}-${index + 1}.jpeg`;
+      const filename = `photo-${Date.now()}-${index + 1}meetup.jpeg`;
       await sharp(file.buffer)
         .resize(500, 500)
         .toFormat('jpeg')
-        .toFile(`public/meetup-photos/${filename}`);
+        .toFile(`meetupfrontend/public/meetup-photos/${filename}`);
       req.body.images.push(filename);
     })
   )
@@ -61,6 +61,7 @@ exports.getupcomingMeetings = (req, res, next) => {
         location: 1,
         topic: 1,
         tags: 1,
+        images: 1,
       },
     },
   ]).then((results) => {

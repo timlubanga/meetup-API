@@ -1,0 +1,236 @@
+[
+  {
+    "topic": "React Native for 2020",
+    "happeningOn": "12/21/2020",
+    "category": "technology & engineering",
+    "location": {
+      "address": " andela, kenya, TRM Drive"
+    },
+    "images": ["techone.jpg"]
+  },
+  {
+    "topic": "React hooks for advanced Developers",
+    "happeningOn": "11/18/2020",
+    "category": "technology & engineering",
+    "location": {
+      "address": "Ihub kenya"
+    },
+    "images": ["techtwo.jpg"]
+  },
+  {
+    "topic": "cyber security in backing",
+    "happeningOn": "12/21/2020",
+    "category": "technology & engineering",
+    "location": {
+      "address": " Technobrain center, nairobi CBD"
+    },
+    "images": ["techthree.jpg"]
+  },
+  {
+    "topic": "mobile development",
+    "happeningOn": "1/21/2021",
+    "category": "technology & engineering",
+    "location": {
+      "address": "ICT center, kenya"
+    },
+    "images": ["techfour.jpg"]
+  },
+  {
+    "topic": "cryptocurrency trading",
+    "happeningOn": "12/21/2020",
+    "category": "technology & engineering",
+    "location": {
+      "address": " Bombas of kenya"
+    },
+    "images": ["techfive.jpg"]
+  },
+  {
+    "topic": "how to excell in exams",
+    "happeningOn": "12/21/2020",
+    "category": "learning",
+    "location": {
+      "address": " online, Zoom meeting"
+    },
+    "images": ["learningone.jpg"]
+  },
+  {
+    "topic": "How to improve your reading habit",
+    "happeningOn": "12/10/2020",
+    "category": "learning",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["learningtwo.jpg"]
+  },
+  {
+    "topic": "mastering new skills",
+    "happeningOn": "11/21/2020",
+    "category": "learning",
+    "location": {
+      "address": "online, zoom meeting"
+    },
+    "images": ["learningthree.jpg"]
+  },
+  {
+    "topic": "impriving your IQ level",
+    "happeningOn": "12/11/2020",
+    "category": "learning",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["learningfour.jpg"]
+  },
+  {
+    "topic": "React Native for 2020",
+    "happeningOn": "12/21/2020",
+    "category": "learning",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["learningfive.jpg"]
+  },
+  {
+    "topic": "loosing calories",
+    "happeningOn": "10/21/2020",
+    "category": "health and wellness",
+    "location": {
+      "address": " online,zoom meeting"
+    },
+    "images": ["healthone.jpg"]
+  },
+  {
+    "topic": "Boosting immunity system",
+    "happeningOn": "9/21/2020",
+    "category": "health and wellness",
+    "location": {
+      "address": "online, zoom meeting"
+    },
+    "images": ["healthtwo.jpg"]
+  },
+  {
+    "topic": "physical exercises routlines",
+    "happeningOn": "10/29/2020",
+    "category": "health and wellness",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["healththree.jpg"]
+  },
+  {
+    "topic": "eating healthy to keep low body fat",
+    "happeningOn": "12/21/2020",
+    "category": "health and wellness",
+    "location": {
+      "address": " online, zoom meating"
+    },
+    "images": ["healthfour.jpg"]
+  },
+  {
+    "topic": "nutrition and diatery",
+    "happeningOn": "12/21/2021",
+    "category": "health and wellness",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["healthfive.jpg"]
+  },
+  {
+    "topic": "ngong hills hiking",
+    "happeningOn": "12/21/2020",
+    "category": "outdoor and adventure",
+    "location": {
+      "address": " ngong hills"
+    },
+    "images": ["adventureone.jpg"]
+  },
+  {
+    "topic": "ngong hills hiking",
+    "happeningOn": "12/21/2020",
+    "category": "outdoor and adventure",
+    "location": {
+      "address": " ngong hills"
+    },
+    "images": ["adventureone.jpg"]
+  },
+  {
+    "topic": "friends picnic",
+    "happeningOn": "9/15/2020",
+    "category": "outdoor and adventure",
+    "location": {
+      "address": "evergreen, Kiambu road"
+    },
+    "images": ["adventuretwo.jpg"]
+  },
+  {
+    "topic": "Skiing",
+    "happeningOn": "9/29/2020",
+    "category": "outdoor and adventure",
+    "location": {
+      "address": " fourtheen falls"
+    },
+    "images": ["adventurethree.jpg"]
+  },
+  {
+    "topic": "friends gateway, marine experience",
+    "happeningOn": "12/21/2020",
+    "category": "outdoor and adventure",
+    "location": {
+      "address": " Diani"
+    },
+    "images": ["adventuresix.jpg"]
+  },
+  {
+    "topic": "nature walk",
+    "happeningOn": "10/15/2020",
+    "category": "outdoor and adventure",
+    "location": {
+      "address": " karura forest, kiambu road"
+    },
+    "images": ["adventurefour.jpg"]
+  },
+  {
+    "topic": "Tsavo park experience",
+    "happeningOn": "12/21/2020",
+    "category": "outdoor and adventure",
+    "location": {
+      "address": " tsavo national park"
+    },
+    "images": ["adventurefive.jpg"]
+  },
+  {
+    "topic": "career advancement tips",
+    "happeningOn": "12/12/2020",
+    "category": "careers & Business",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["careerone.jpg"]
+  },
+  {
+    "topic": "How to be a good boss",
+    "happeningOn": "12/14/2020",
+    "category": "careers & Business",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["careertwo.jpg"]
+  },
+  {
+    "topic": "motivating employees",
+    "happeningOn": "12/21/2020",
+    "category": "careers & Business",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["careerthree.jpg"]
+  },
+  {
+    "topic": "traits of a successful business person",
+    "happeningOn": "12/5/2020",
+    "category": "careers & Business",
+    "location": {
+      "address": " online, zoom meeting"
+    },
+    "images": ["careerfour.jpg"]
+  }
+]

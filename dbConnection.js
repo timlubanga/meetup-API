@@ -33,6 +33,7 @@ const databaseConnect = () => {
         })
         .then((res, err) => {
           if (err) return reject(err);
+        
           resolve('database connected');
         });
     }
