@@ -1,0 +1,15 @@
+.card {
+  min-height: 250px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  transition: all ease-in 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}

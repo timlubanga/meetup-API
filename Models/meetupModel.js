@@ -8,6 +8,12 @@ meetupSchema = moongose.Schema(
       default: Date.now(),
     },
 
+    category:{
+      type:String,
+      required:[true, "please provide the meetup category"],
+      enum:["careers & Business", "outdoor and adventure", "learning", "health and wellness", "technology & engineering"]
+    },
+
     location: {
       type: {
         type: String,
@@ -16,7 +22,10 @@ meetupSchema = moongose.Schema(
       },
 
       coordinates: [Number],
-      address: String,
+      address: {
+        type:String
+        
+      }
     },
 
     topic: {

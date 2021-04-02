@@ -21,12 +21,12 @@ exports.processFiles = upload.single('photo');
 
 exports.resizeUserPhoto = (req, res, next) => {
   if (!req.file) return next();
-  req.body.photo = `user-${req.user.id}-${Date.now()}.jpeg`;
+  req.body.photo = `user-${req.user.id}-${Date.now()}user.jpeg`;
 
   sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
-    .toFile(`public/users_photos/${req.body.photo}`)
+    .toFile(`meetupfrontend/public/users_photos/${req.body.photo}`)
     .then((res) => {
       next();
     })

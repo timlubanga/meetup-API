@@ -61,7 +61,7 @@ class Email {
   }
 
   sendResetPasswordToken(name, message) {
-    const template = pug.compileFile('public/templates/resetPassword.pug')({
+    const template = pug.compileFile('meetupfrontend/public/templates/resetPassword.pug')({
       name: name,
       message: message,
     });
@@ -69,7 +69,7 @@ class Email {
   }
 
   sendSuccessRegistration(name) {
-    const template = pug.compileFile('public/templates/welcome.pug')({
+    const template = pug.compileFile('meetupfrontend/public/templates/welcome.pug')({
       name: name,
     });
     return this.sendEmailTo(template);
