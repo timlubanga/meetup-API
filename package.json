@@ -4,7 +4,7 @@
   "description": "meetup api",
   "main": "server.js",
   "scripts": {
-    "start": "npm install",
+    "start": "node server.js",
     "build": "npm install",
     "clear": "NODE_ENV=clearing nodemon server.js",
     "debug": "ndb server.js",
