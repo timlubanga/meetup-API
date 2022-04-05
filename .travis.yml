@@ -4,7 +4,8 @@ node_js:
 env:
   global:
     - CC_TEST_REPORTER_ID=24095fdba45771e0b30423849fdab31a5ad6965db8daa34452367ef6ff5b8acb
-before_install: export PORT=3300
+before_install: 
+export PORT=3300
   export NODE_ENV="development"
   export SECRET="timothy"
   export PASS="smartjoker123"

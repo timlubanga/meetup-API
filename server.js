@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './env/config.env' });
+require('dotenv').config({ path: '.env' });
 // const dataDelete = require('./script');
 
 //connect the application to the database
@@ -13,7 +13,7 @@ if (
       // dataDelete();
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`this is the error${err}`);
     });
 }
 
@@ -23,18 +23,18 @@ if (process.env.NODE_ENV == 'clearing') {
   deleteData();
 }
 
-let port = 0;
+let port = 3000;
 console.log(process.env.NODE_ENV);
 
 if (
   process.env.NODE_ENV === 'development' ||
   process.env.NODE_ENV === 'production'
 ) {
-  port = process.env.PORT || 3000;
+  port = port;
 }
 app.listen(port, () => {
   console.log(
-    `the sever is running on port ${port} your mail is ${app.locals.email}`
+    `the sever is running on port ${port}`
   );
 });
 

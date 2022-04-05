@@ -31,7 +31,7 @@ exports.createUser = (req, res, next) => {
     });
 };
 
-exports.loginUser = (req, res) => {
+exports.loginUser = (req, res,next) => {
   if (!req.body.email || !req.body.password)
     return res
       .status(404)
@@ -53,6 +53,7 @@ exports.loginUser = (req, res) => {
       return res.status(500).json({ message: 'wrong password  or username' });
     })
     .catch((err) => {
+      console.log("we reached here",err)
       next(err);
     });
 };

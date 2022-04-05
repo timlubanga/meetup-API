@@ -16,18 +16,4 @@ const inserted = () => {
       console.log(err);
     });
 };
-
-// module.exports = inserted;
-// const deleteMeetupData = () => {
-//   Meetups.deleteMany({})
-//     .then((el) => {
-//       console.log('all data deleted');
-//     })
-//     .catch((err) => {
-//       console.log('something went wrong');
-//     });
-// };
-
-// module.exports = deleteMeetupData;
-
 module.exports = inserted;

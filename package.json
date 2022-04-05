@@ -4,8 +4,8 @@
   "description": "meetup api",
   "main": "server.js",
   "scripts": {
-    "start": "npm install",
-    "build": "npm install",
+    "start": "NODE_ENV=development nodemon server.js",
+    "build": "node server.js",
     "clear": "NODE_ENV=clearing nodemon server.js",
     "debug": "ndb server.js",
     "test": "NODE_ENV=testing  nyc  mocha  --recursive  --timeout 250000   ---exit",
